@@ -1,0 +1,7 @@
+{
+  "name": "Ionic-quinta-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
