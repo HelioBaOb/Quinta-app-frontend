@@ -9,12 +9,14 @@ import { LoginPageRoutingModule } from './login-routing.module';
 import { LoginPage } from './login.page';
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    ComponentsModule,
     LoginPageRoutingModule
   ],
   declarations: [LoginPage],

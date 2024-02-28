@@ -7,19 +7,22 @@ import { PipesModule } from '../pipes/pipes.module';
 
 //Schemas
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { AvatarSelectorComponent } from './avatar-selector/avatar-selector.component';
+import { MapaComponent } from './mapa/mapa.component';
 
 
 
 
 @NgModule({
-  declarations: [PostComponent, PostsComponent],
+  declarations: [PostComponent, PostsComponent, AvatarSelectorComponent, MapaComponent],
   imports: [
     CommonModule,
     IonicModule,
     PipesModule
   ],
   exports: [
-    PostsComponent
+    PostsComponent,
+    AvatarSelectorComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

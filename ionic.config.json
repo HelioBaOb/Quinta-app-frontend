@@ -1,7 +1,8 @@
 {
   "name": "Ionic-quinta-app",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "angular"
 }

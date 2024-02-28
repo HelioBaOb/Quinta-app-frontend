@@ -19,6 +19,10 @@ export class Tab1Page implements OnInit{
 
     this.siguientes();
 
+    this.postService.nuevoPost.subscribe( post => {
+      this.posts.unshift(post);
+    });
+
   }
 
   recargar( event:any ){
@@ -31,7 +35,7 @@ export class Tab1Page implements OnInit{
 
     this.postService.getPosts(pull)
     .subscribe( resp => {
-      console.log(resp);
+      console.log(resp.posts);   
       this.posts.push( ...resp.posts );
 
       if (event){

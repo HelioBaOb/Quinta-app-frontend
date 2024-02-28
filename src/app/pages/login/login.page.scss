@@ -16,3 +16,10 @@ img {
     transition: opacity 0.5s linear;
     opacity: 1 !important;
 }
+
+.all-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}

@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { NavController } from '@ionic/angular';
+import { Usuario } from 'src/app/interfaces/interfaces';
+import { UiServiceService } from 'src/app/services/ui-service.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { SwiperContainer } from 'swiper/element';
 
@@ -12,72 +15,62 @@ export class LoginPage implements OnInit {
 
   @ViewChild('slidePrincipal') slides:SwiperContainer;
 
-  avatars = [
-    {
-      img: 'av-1.png',
-      seleccionado: true
-    },
-    {
-      img: 'av-2.png',
-      seleccionado: false
-    },
-    {
-      img: 'av-3.png',
-      seleccionado: false
-    },
-    {
-      img: 'av-4.png',
-      seleccionado: false
-    },
-    {
-      img: 'av-5.png',
-      seleccionado: false
-    },
-    {
-      img: 'av-6.png',
-      seleccionado: false
-    },
-    {
-      img: 'av-7.png',
-      seleccionado: false
-    },
-    {
-      img: 'av-8.png',
-      seleccionado: false
-    },
-  ];
-
-  avatarSlide = "3.5";
-
   loginUser = {
     email: 'pmonroy13@gmail.com',
     password: '123456'
   }
 
-  constructor(private usuarioService: UsuarioService) { }
+  registroUser:Usuario = {
+    email: 'test',
+    password: '123456',
+    nombre: 'Test',
+    avatar: 'av-1.png'
+
+  };
+
+  constructor(private usuarioService: UsuarioService,
+              private navCtrl: NavController,
+              private uiService: UiServiceService) { }
 
   ngOnInit() {
     // this.slides.allowSlideNext = true;
     // this.slides.allowSlidePrev = true;
     // this.slides.allowTouchMove = true;
+    this.usuarioService.crearStorage();
 
   }
 
-  login( fLogin: NgForm ){
+  async login( fLogin: NgForm ){
 
     if( fLogin.invalid ){ return; }
 
-    this.usuarioService.login( this.loginUser.email, this.loginUser.password );
+    const valido = await this.usuarioService.login( this.loginUser.email, this.loginUser.password );
+
+    console.log(valido);
+    if( valido ){
+      // navegar al tabs
+      this.navCtrl.navigateRoot('main/tabs/tab1', { animated: true });
+    } else {
+      // mostrar alerta de usuario y contraseña no correctos
+      this.uiService.alertaInformativa('Usuario y/o contraseña no son correctos.');
+    }
 
   }
 
-  registro( fRegistro: NgForm ){
-    console.log(fRegistro.valid); 
-  }
+  async registro( fRegistro: NgForm ){
 
-  seleccionarAvatar( avatar:any ){
-    this.avatars.forEach( av => av.seleccionado = false );
-    avatar.seleccionado = true;
+    if( fRegistro.invalid ){ return; }
+    
+    const valido = await this.usuarioService.registro( this.registroUser );
+
+    if( valido ){
+      // navegar al tabs
+      this.navCtrl.navigateRoot('main/tabs/tab1', { animated: true });
+    } else {
+      // mostrar alerta de usuario y contraseña no correctos
+      this.uiService.alertaInformativa('Ese correo electrónico ya existe.');
+    }
+
   }
 
   mostrarRegistro(){
